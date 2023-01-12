@@ -21,6 +21,7 @@ EOF
     cp libtool libtool.orig
 cat > Makefile  << EOF
 all:
+	if ! grep -qv crti.o libtool; then echo libtool was not filtered; exit 1; fi
 
 install:
 	mkdir -p $prefix
