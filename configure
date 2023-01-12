@@ -17,6 +17,7 @@ fi
 foo="/usr/lib64/crti.o"
 bar="/usr/lib/gcc/aarch64-redhat-linux/8/../../../../lib64/crti.o"
 EOF
+   chmod 755 libtool
     cp libtool libtool.orig
 cat > Makefile  << EOF
 all:
