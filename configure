@@ -1,0 +1,30 @@
+#!/bin/sh
+
+while getopts :sc:-: o; do
+    case $o in
+        -) o=${OPTARG%%=*}; OPTARG=${OPTARG#"$o"}; OPTARG=${OPTARG#=};;
+    esac
+    if [ "$o" = prefix ]; then
+        prefix=$OPTARG
+    fi
+done
+
+if [ -z "$prefix" ]; then
+    exit 1
+fi
+
+    cat > libtool << EOF
+foo="/usr/lib64/crti.o"
+bar="/usr/lib/gcc/aarch64-redhat-linux/8/../../../../lib64/crti.o"
+EOF
+    cp libtool libtool.orig
+cat > Makefile  << EOF
+all:
+
+install:
+	mkdir -p $prefix
+	cp libtool $prefix
+	cp libtool.orig $prefix
+EOF
+
+
